@@ -3,6 +3,7 @@ package com.projetos.gamelist.services;
 import com.projetos.gamelist.dto.GameDTO;
 import com.projetos.gamelist.dto.GameMinDTO;
 import com.projetos.gamelist.entities.Game;
+import com.projetos.gamelist.projections.GameMinProjection;
 import com.projetos.gamelist.repositories.GameRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,13 @@ public class GameService {
         Game resultGame = gameRepository.findById(id).isPresent() ? gameRepository.findById(id).get() : null;
         GameDTO gameDto = new GameDTO(resultGame);
         return gameDto;
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId){
+        List<GameMinProjection> resultGameListProjection =  gameRepository.searchByList(listId);
+        List<GameMinDTO> gameListDto = resultGameListProjection.stream().map(game -> new GameMinDTO(game)).toList();
+        return gameListDto;
     }
 
 }

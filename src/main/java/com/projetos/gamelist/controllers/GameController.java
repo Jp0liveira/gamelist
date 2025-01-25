@@ -2,7 +2,6 @@ package com.projetos.gamelist.controllers;
 
 import com.projetos.gamelist.dto.GameDTO;
 import com.projetos.gamelist.dto.GameMinDTO;
-import com.projetos.gamelist.entities.Game;
 import com.projetos.gamelist.services.GameService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +22,14 @@ public class GameController {
 
     @GetMapping
     public List<GameMinDTO> findAll(){
-        List<GameMinDTO> games = gameService.findAll();
-        return games;
+        List<GameMinDTO> gameMinDto = gameService.findAll();
+        return gameMinDto;
     }
 
     @GetMapping(value = "/{id}")
     public GameDTO findById(@PathVariable Long id){
-        GameDTO game = gameService.findById(id);
-        return game;
+        GameDTO gameDto = gameService.findById(id);
+        return gameDto;
     }
 
 }
